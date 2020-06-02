@@ -21,10 +21,10 @@ class WebshopController extends AbstractController {
     public function Product()
     {
         
-        // $Get_Products = $this->get_products();
+        $Get_Products = $this->get_products();
         
         return $this->render('Product.html.twig', [
-            // 'Products' => $Get_Products,
+            'Products' => $Get_Products,
         ]);
     }
 
@@ -35,7 +35,7 @@ class WebshopController extends AbstractController {
     $dbServername = "localhost";
     $dbUsername = "root";
     $dbPassword = "mysql";
-    $dbName = "AO_Webshop";
+    $dbName = "AO-Webshop";
 
     $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
     return $conn;

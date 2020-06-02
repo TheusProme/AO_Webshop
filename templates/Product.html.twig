@@ -12,20 +12,33 @@
 <div class="container">
     <div class="product-list">
         <div class="row">
+
+        {% set Count = 0 %}
+        {% for Product in Products %}
+            {% set Count = Count + 1 %}
+            {# {{ Product.Name }} #}
+
             <div class="col-md-3 col-sm-6">
                 <div class="white-box">
                     <div class="product-img">
-                        <img src="https://www.91-img.com/pictures/laptops/asus/asus-x552cl-sx019d-core-i3-3rd-gen-4-gb-500-gb-dos-1-gb-61721-large-1.jpg">
+                        <img src="{{ Product.Image }}" width="200">
                     </div>
                     <div class="product-bottom">
-                        <div class="product-name">Asus X552CL-SX019D Laptop</div>
+                        <div class="product-name">{{ Product.Name }}</div>
                         <div class="price">
-                            <span class="rupee-icon">€</span> 32,00 
+                            <span class="rupee-icon">€</span> {{ Product.Price }} 
                         </div>
                     </div>
-                    <a href="#" class="blue-btn">Add to cart</a>
+                    <div class="Shoppingcart" style="position: absolute; top: 100%;">
+                        <a href="#" class="blue-btn">Add to cart</a>
+                    </div>
                 </div>
             </div>
+            {% if Count == 4 %}
+                <div class="gab" style="height: 5em; width: 100%;"></div>
+                {% set Count = 0 %}
+            {% endif %}
+        {% endfor %}
         </div>
     </div>
 </div>
@@ -70,8 +83,6 @@
     min-height: 135px;
 }
 .product-img img {
-    max-width: 100%;
-    max-height: 130px;
     display: block;
     margin: 0 auto;
 }
@@ -119,6 +130,11 @@
     display: inline-block;
     text-decoration: line-through;
     margin-left: 4px;
+}
+
+.Shoppingcart {
+    position: absolute;
+    top: 100%;
 }
 </style>
 {% endblock %}
