@@ -28,8 +28,10 @@ class WebshopController extends AbstractController {
 
     public function Account()
     {
+        $Error = '';
 
         return $this->render('Account.html.twig', [
+            'Errors' => $Error,
         ]);
     }
 
