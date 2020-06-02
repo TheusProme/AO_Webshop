@@ -9,3 +9,17 @@ AO_Webshop:
 AO_Webshop_Product:
     path: /ao-webshop/product
     controller: App\Controller\WebshopController::Product
+
+AO_Webshop_Account:
+    path: /ao-webshop/account
+    controller: App\Controller\WebshopController::Account
+
+# ------------------------------------------------------- Account -----------------------------------------------------------
+
+AO_Webshop_Account_Register:
+    path: /ao-webshop/account/register
+    controller: App\Controller\UserController::Account_Register
+
+AO_Webshop_Account_Login:
+    path: /ao-webshop/account/login
+    controller: App\Controller\UserController::Account_Login

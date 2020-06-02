@@ -11,10 +11,8 @@ class WebshopController extends AbstractController {
     
     public function Welcome()
     {
-        $number = random_int(0, 10);
 
         return $this->render('Home.html.twig', [
-            'Number' => $number,
         ]);
     }
 
@@ -25,6 +23,13 @@ class WebshopController extends AbstractController {
         
         return $this->render('Product.html.twig', [
             'Products' => $Get_Products,
+        ]);
+    }
+
+    public function Account()
+    {
+
+        return $this->render('Account.html.twig', [
         ]);
     }
 
