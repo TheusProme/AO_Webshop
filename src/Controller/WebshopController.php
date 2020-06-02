@@ -7,7 +7,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 
 class WebshopController extends AbstractController {
-/*-----------------------------------------------------------Display: ------------------------------------------------------------  */
+/*----------------------------------------------------------- Display: ------------------------------------------------------------  */
     
     public function Welcome()
     {
@@ -25,6 +25,6 @@ class WebshopController extends AbstractController {
         ]);
     }
 
-/*-----------------------------------------------------------Display: ------------------------------------------------------------  */
+/*----------------------------------------------------------- Functions: ------------------------------------------------------------  */
 
 }
