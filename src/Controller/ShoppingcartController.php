@@ -11,25 +11,26 @@ class ShoppingcartController extends AbstractController {
 
     public function Add_product($ID) {
 
-        $Shoppincart = array(1,3);
-
-        for($check = 0; $check == count($Shoppincart); $check++) {
-            if ($Shoppincart[$check] != $ID) {
+        $Shoppingcart = array(1,3);
+        var_dump($ID);
+        for($check = 0; $check == count($Shoppingcart); $check++) {
+            if ($Shoppingcart[$check] != $ID) {
                 array_push($Shoppincart, $ID);
+                var_dump($Shoppingcart);
             } else {
                 
             }
         }
-        // var_dump($Shoppincart);
+        var_dump($Shoppingcart);
         
         
-        // var_dump(count($Shoppincart));
-        $Count_Shoppincart = count($Shoppincart);
+        // var_dump(count($Shoppingcart));
+        $Count_Shoppingcart = count($Shoppingcart);
         
-        return $this->render('Shoppingcart.html.twig', [
-            'Shoppingcartitems' => $Shoppincart,
-            'ShoppingcartCount' => $Count_Shoppincart,
-        ]); 
+        // return $this->render('Shoppingcart.html.twig', [
+        //     'Shoppingcartitems' => $Shoppingcart,
+        //     'ShoppingcartCount' => $Count_Shoppingcart,
+        // ]); 
     }
 
 /*----------------------------------------------------------- Functions: ------------------------------------------------------------  */
