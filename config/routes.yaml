@@ -23,3 +23,7 @@ AO_Webshop_Account_Register:
 AO_Webshop_Account_Login:
     path: /ao-webshop/account/login
     controller: App\Controller\UserController::Account_Login
+
+AO_Webshop_Account_Logout:
+    path: /ao-webshop/account/logout
+    controller: App\Controller\WebshopController::Account_logout

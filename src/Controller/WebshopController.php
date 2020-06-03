@@ -9,15 +9,13 @@ use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 class WebshopController extends AbstractController {
 /*----------------------------------------------------------- Display: ------------------------------------------------------------  */
     
-    public function Welcome()
-    {
+    public function Welcome() {
 
         return $this->render('Home.html.twig', [
         ]);
     }
 
-    public function Product()
-    {
+    public function Product() {
         
         $Get_Products = $this->get_products();
         
@@ -26,8 +24,7 @@ class WebshopController extends AbstractController {
         ]);
     }
 
-    public function Account()
-    {
+    public function Account() {
         $Error = '';
 
         return $this->render('Account.html.twig', [
@@ -35,9 +32,17 @@ class WebshopController extends AbstractController {
         ]);
     }
 
+    public function Account_logout() {
+        
+        sleep(3);
+        
+        return $this->render('Home.html.twig', [
+        ]);
+    }
+
 /*----------------------------------------------------------- Functions: ------------------------------------------------------------  */
     
-    public function databaseconnection(){
+    public function databaseconnection() {
 
     $dbServername = "localhost";
     $dbUsername = "root";
@@ -48,7 +53,7 @@ class WebshopController extends AbstractController {
     return $conn;
     }
 
-    public function get_products(){
+    public function get_products() {
         $products = [];
         $conn = $this->databaseconnection();
         $sql = "SELECT * FROM Products";

@@ -13,19 +13,44 @@ class UserController extends AbstractController {
 
         $FormError = $this->FormControl();
 
-        return $this->render('Account.html.twig', [
-            'Errors' => $FormError,
-        ]);
+        if ($FormError == null) {
+           // var_dump(print_r(array_values($FormError)));
+            $Name = $_POST["Username"];
+            $Pass = $_POST["Password"];
+            
+            $this->Submit_Account($Name, $Pass);
+
+            // session_start();
+
+            $session = $this->get('session');
+            $session->set('filter', array(
+                'User' => $Name,
+                'Shoppingcart' => '',
+            ));
+            
+            return $this->render('Home.html.twig', [
+            ]);
+            
+        } else {        
+            // var_dump(print_r(array_values($FormError)));
+
+            
+            return $this->render('Account.html.twig', [
+                'Errors' => $FormError,
+            ]);
+            
+        }
     }
 
 /*----------------------------------------------------------- Functions: ------------------------------------------------------------  */
-    
+
     public function FormControl() {
         
         if(!empty($_POST)) {
             $name = $_POST['Username'];
             $password = $_POST['Password'];
-        
+            $errors = array();
+            
             $namelen = strlen($name);
             $passwordlen = strlen($password);
             $max = 255;
@@ -61,6 +86,29 @@ class UserController extends AbstractController {
             return $errors;
         }
         
+    }
 
+/*----------------------------------------------------------- Database: ------------------------------------------------------------  */
+
+    public function databaseconnection() {
+
+        $dbServername = "localhost";
+        $dbUsername = "root";
+        $dbPassword = "mysql";
+        $dbName = "AO-Webshop";
+    
+        $conn = mysqli_connect($dbServername, $dbUsername, $dbPassword, $dbName);
+        return $conn;
+        }
+
+    public function Submit_Account($dataName, $dataPass) {
+        $conn = $this->databaseconnection();
+        $Submit = "INSERT INTO Customer (ID, Name, Email, Code) VALUES (NULL, '$dataName' , 'No Email!!',  '$dataPass')";
+        //var_dump($Submit);
+        $result = mysqli_query($conn, $Submit);
+    }
+
+    public function Get_Account($dataName, $dataPass) {
+        # code...
     }
 }

@@ -11,6 +11,9 @@
 
     {% endblock %}
   </head>
+
+  {% set filter = app.session.get('filter') %}
+  {% set user_filter = filter['User'] %}
   <body>
     {% block body %}
       {% block Head %}
@@ -53,23 +56,22 @@
               </li>
             </ul>
             <ul class="navbar-nav ml-auto">
-              <li class="nav-item">
-                <a class="nav-link" href="/ao-webshop/account">Account</a>
-              </li>
-              <li class="nav-item">
-                <a class="nav-link" href="#">Shoppincart</a>
-              </li>
-              {# <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle"
-                  href="#"
-                  data-toggle="dropdown">
-                  Dropdown right
-                </a>
+              {% if user_filter == '' %}
+                <li class="nav-item">
+                  <a class="nav-link" href="/ao-webshop/account">Account</a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="#">Shoppincart</a>
+                </li>
+              {% else %}    
+                <li class="nav-item dropdown">
+                  <a class="nav-link dropdown-toggle" href="#" data-toggle="dropdown"><strong>{{ user_filter }}</strong></a>
                 <ul class="dropdown-menu dropdown-menu-right">
-                  <li><a class="dropdown-item" href="#">Submenu item 1</a></li>
-                  <li><a class="dropdown-item" href="#">Submenu item 2</a></li>
+                  <li><a class="dropdown-item" href="#">Shoppincart</a></li>
+                  <li><a class="dropdown-item" href="#{#/ao-webshop/account/logout#}">Logout</a></li>
                 </ul>
-              </li> #}
+              </li>
+              {% endif %}
             </ul>
           </div> <!-- navbar-collapse.// -->
         </nav>
