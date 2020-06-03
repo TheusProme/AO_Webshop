@@ -1,6 +1,4 @@
 <?php
-
-// src/Controller/LuckyController.php
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -11,12 +9,13 @@ class UserController extends AbstractController {
     
     public function Account_Register() {
 
-        $FormError = $this->FormControl();
+        $Name = $_POST["Username"];
+        $Pass = $_POST["Password"];
+
+        $FormError = $this->FormControl($Name, $Pass);
 
         if ($FormError == null) {
            // var_dump(print_r(array_values($FormError)));
-            $Name = $_POST["Username"];
-            $Pass = $_POST["Password"];
             
             $this->Submit_Account($Name, $Pass);
 
@@ -25,7 +24,6 @@ class UserController extends AbstractController {
             $session = $this->get('session');
             $session->set('filter', array(
                 'User' => $Name,
-                'Shoppingcart' => '',
             ));
             
             return $this->render('Home.html.twig', [
@@ -42,13 +40,46 @@ class UserController extends AbstractController {
         }
     }
 
+    public function Account_Login() {
+
+        $Name = $_POST["Loginname"];
+        $Pass = $_POST["Loginpass"];
+
+        $LoginFormError = $this->FormControl($Name, $Pass);
+
+        if ($LoginFormError == null) {
+           // var_dump(print_r(array_values($LoginFormError)));
+            
+            $this->Submit_Account($Name, $Pass);
+
+            // session_start();
+
+            $session = $this->get('session');
+            $session->set('filter', array(
+                'User' => $Name,
+            ));
+            
+            return $this->render('Home.html.twig', [
+            ]);
+            
+        } else {        
+            // var_dump(print_r(array_values($LoginFormError)));
+
+            
+            return $this->render('Account.html.twig', [
+                'LoginErrors' => $LoginFormError,
+            ]);
+            
+        }
+    }
+
 /*----------------------------------------------------------- Functions: ------------------------------------------------------------  */
 
-    public function FormControl() {
+    public function FormControl($DataName, $DataPass) {
         
         if(!empty($_POST)) {
-            $name = $_POST['Username'];
-            $password = $_POST['Password'];
+            $name = $DataName;
+            $password = $DataPass;
             $errors = array();
             
             $namelen = strlen($name);

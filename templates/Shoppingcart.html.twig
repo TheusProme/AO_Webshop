@@ -1,0 +1,7 @@
+{% extends "Home.html.twig" %}
+{% block Content %}
+{% for Shoppingcartitem in Shoppingcartitems %}
+    <li>{{ Shoppingcartitem }}</li>
+{% endfor %}
+Aantal producten: {{ ShoppingcartCount }}
+{% endblock %}

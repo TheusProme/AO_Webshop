@@ -27,3 +27,9 @@ AO_Webshop_Account_Login:
 AO_Webshop_Account_Logout:
     path: /ao-webshop/account/logout
     controller: App\Controller\WebshopController::Account_logout
+
+# ------------------------------------------------------- Shoppingcart -----------------------------------------------------------
+
+AO_Webshop_Shoppingcart:
+    path: /ao-webshop/add-product/{ID}
+    controller: App\Controller\ShoppingcartController::Add_product

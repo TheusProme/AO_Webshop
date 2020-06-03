@@ -1,6 +1,5 @@
 <?php
 
-// src/Controller/LuckyController.php
 namespace App\Controller;
 
 use Symfony\Component\HttpFoundation\Response;
@@ -10,6 +9,11 @@ class WebshopController extends AbstractController {
 /*----------------------------------------------------------- Display: ------------------------------------------------------------  */
     
     public function Welcome() {
+
+        $session = $this->get('session');
+        $session->set('filter', array(
+            'User' => "",
+        ));
 
         return $this->render('Home.html.twig', [
         ]);
