@@ -26,13 +26,13 @@ class UserController extends AbstractController {
                 'User' => $Name,
             ));
             
-            return $this->render('Home.html.twig', [
+            return $this->render('home.html.twig', [
             ]);
             
         } else {        
             // var_dump(print_r(array_values($FormError)));
  
-            return $this->render('Account.html.twig', [
+            return $this->render('account.html.twig', [
                 'Errors' => $FormError,
             ]);
             
@@ -48,17 +48,20 @@ class UserController extends AbstractController {
 
         if ($LoginFormError == null) {
             
+            $Shoppingcart = "";
+            
             $session = $this->get('session');
             $session->set('filter', array(
                 'User' => $Name,
+                'Shoppingcart_User' => $Shoppingcart,
             ));
             
-            return $this->render('Home.html.twig', [
+            return $this->render('home.html.twig', [
             ]);
             
         } else {        
       
-            return $this->render('Account.html.twig', [
+            return $this->render('account.html.twig', [
                 'LoginErrors' => $LoginFormError,
             ]);
             

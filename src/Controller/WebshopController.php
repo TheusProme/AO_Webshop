@@ -15,7 +15,7 @@ class WebshopController extends AbstractController {
             'User' => "",
         ));
 
-        return $this->render('Home.html.twig', [
+        return $this->render('home.html.twig', [
         ]);
     }
 
@@ -23,7 +23,7 @@ class WebshopController extends AbstractController {
         
         $Get_Products = $this->get_products();
         
-        return $this->render('Product.html.twig', [
+        return $this->render('product.html.twig', [
             'Products' => $Get_Products,
         ]);
     }
@@ -32,7 +32,7 @@ class WebshopController extends AbstractController {
         $Error = '';
         $LoginError = '';
 
-        return $this->render('Account.html.twig', [
+        return $this->render('account.html.twig', [
             'Errors' => $Error,
             'LoginErrors' => $LoginError,
         ]);
@@ -42,7 +42,7 @@ class WebshopController extends AbstractController {
         
         sleep(3);
         
-        return $this->render('Home.html.twig', [
+        return $this->render('home.html.twig', [
         ]);
     }
 
