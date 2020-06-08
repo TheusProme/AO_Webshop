@@ -31,8 +31,7 @@ class UserController extends AbstractController {
             
         } else {        
             // var_dump(print_r(array_values($FormError)));
-
-            
+ 
             return $this->render('Account.html.twig', [
                 'Errors' => $FormError,
             ]);
@@ -45,15 +44,10 @@ class UserController extends AbstractController {
         $Name = $_POST["Loginname"];
         $Pass = $_POST["Loginpass"];
 
-        $LoginFormError = $this->FormControl($Name, $Pass);
+        $LoginFormError = $this->FormLogin($Name, $Pass);
 
         if ($LoginFormError == null) {
-           // var_dump(print_r(array_values($LoginFormError)));
             
-            $this->Submit_Account($Name, $Pass);
-
-            // session_start();
-
             $session = $this->get('session');
             $session->set('filter', array(
                 'User' => $Name,
@@ -63,9 +57,7 @@ class UserController extends AbstractController {
             ]);
             
         } else {        
-            // var_dump(print_r(array_values($LoginFormError)));
-
-            
+      
             return $this->render('Account.html.twig', [
                 'LoginErrors' => $LoginFormError,
             ]);
@@ -87,6 +79,14 @@ class UserController extends AbstractController {
             $max = 255;
             $minname = 2;
             $minpassword = 3;
+
+            if(empty($name)){
+                $errors[] = "name is required";
+            }
+        
+            if(empty($password)){
+                $errors[] = "password cannot be left empty";
+            }
         
             if($namelen < $minname){
                 $errors[] = "name must be at least 2 characters";
@@ -99,15 +99,7 @@ class UserController extends AbstractController {
             } elseif($passwordlen > $max){
                 $errors[] = "password must be less than 255 characters";
             }
-        
-            if(empty($name)){
-                $errors[] = "name is required";
-            }
-        
-            if(empty($password)){
-                $errors[] = "password cannot be left empty";
-            }
-        
+           
             // echo "<ul>";
             // foreach ($errors as $error) {
             //     echo "<li>$error</li>";
@@ -115,8 +107,46 @@ class UserController extends AbstractController {
             // echo "</ul>";
         
             return $errors;
-        }
+        }  
+    }
+
+    public function FormLogin($Name, $Pass) {
+        // $Name = $Name;
+        // $PassWord = $Pass;
+        $Loginerrors = array();
         
+        $result = $this->Get_Account($Name);
+        
+        if (json_encode($result) != "[]") {
+            foreach ($result as $row) {
+                 
+                if ($Name == $row["Name"]) {
+                    // echo "Name is correct!!";
+                    if ($Pass == $row["Code"]) {
+                        
+                        $session = $this->get('session');
+                        $session->set('filter', array(
+                            'User' => $Name,
+                        ));
+
+                        return $this->render('Home.html.twig', [
+                        ]);
+            
+                    } else {
+                        // echo "PassWord is incorrect!!";
+                        $Loginerrors[] = '<i class="fas fa-exclamation-circle"></i> PassWord is incorrect!!';
+                    }
+                } else {
+                    // echo "Name is incorrect!!";
+                    $Loginerrors[] = '<i class="fas fa-exclamation-circle"></i> Name is incorrect!!'; 
+                }         
+            }       
+        } else {
+            // echo "<br> No user found";
+            $Loginerrors[] = '<i class="fas fa-exclamation-circle"></i> No user found / Wrong name';
+        }
+
+        return $Loginerrors;
     }
 
 /*----------------------------------------------------------- Database: ------------------------------------------------------------  */
@@ -139,7 +169,15 @@ class UserController extends AbstractController {
         $result = mysqli_query($conn, $Submit);
     }
 
-    public function Get_Account($dataName, $dataPass) {
-        # code...
+    public function Get_Account($dataName) {
+        
+        $conn = $this->databaseconnection();
+        $Search = "SELECT * FROM `Customer` WHERE `Name` = '$dataName'";
+        // var_dump($Submit);
+        $result = mysqli_query($conn, $Search);
+        // var_dump($result);
+        
+        return $result;
+        
     }
 }

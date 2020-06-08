@@ -30,9 +30,11 @@ class WebshopController extends AbstractController {
 
     public function Account() {
         $Error = '';
+        $LoginError = '';
 
         return $this->render('Account.html.twig', [
             'Errors' => $Error,
+            'LoginErrors' => $LoginError,
         ]);
     }
 
