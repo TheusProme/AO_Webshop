@@ -8,7 +8,7 @@ class UserController extends AbstractController {
 /*----------------------------------------------------------- Display: ------------------------------------------------------------  */
     
     public function Account_Register() {
-
+        
         $Name = $_POST["Username"];
         $Pass = $_POST["Password"];
 
@@ -24,6 +24,7 @@ class UserController extends AbstractController {
             $session = $this->get('session');
             $session->set('filter', array(
                 'User' => $Name,
+                'Shoppingcart_User' => array(),
             ));
             
             return $this->render('home.html.twig', [
@@ -34,35 +35,37 @@ class UserController extends AbstractController {
  
             return $this->render('account.html.twig', [
                 'Errors' => $FormError,
+                'LoginErrors' => '',
             ]);
             
         }
     }
 
     public function Account_Login() {
-
+        
         $Name = $_POST["Loginname"];
         $Pass = $_POST["Loginpass"];
 
         $LoginFormError = $this->FormLogin($Name, $Pass);
-
-        if ($LoginFormError == null) {
-            
-            $Shoppingcart = "";
+        
+        // var_dump("Data: ". $LoginFormError. "<-------");
+        if ($LoginFormError == "") {
             
             $session = $this->get('session');
             $session->set('filter', array(
                 'User' => $Name,
-                'Shoppingcart_User' => $Shoppingcart,
+                'Shoppingcart_User' => '',
             ));
             
             return $this->render('home.html.twig', [
             ]);
             
         } else {        
-      
+            // var_dump(print_r($LoginFormError));
+            
             return $this->render('account.html.twig', [
                 'LoginErrors' => $LoginFormError,
+                'Errors' => '',
             ]);
             
         }
@@ -137,18 +140,19 @@ class UserController extends AbstractController {
             
                     } else {
                         // echo "PassWord is incorrect!!";
-                        $Loginerrors[] = '<i class="fas fa-exclamation-circle"></i> PassWord is incorrect!!';
+                        $Loginerrors[] = 'Password is incorrect!!';
                     }
                 } else {
                     // echo "Name is incorrect!!";
-                    $Loginerrors[] = '<i class="fas fa-exclamation-circle"></i> Name is incorrect!!'; 
+                    $Loginerrors[] = 'Name is incorrect!!'; 
                 }         
             }       
         } else {
             // echo "<br> No user found";
-            $Loginerrors[] = '<i class="fas fa-exclamation-circle"></i> No user found / Wrong name';
+            $Loginerrors[] = 'No user found / Wrong name';
         }
-
+        
+        // var_dump($Loginerrors);
         return $Loginerrors;
     }
 

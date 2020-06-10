@@ -2,8 +2,17 @@
 {% block Content %}
 
 
-{% for Shoppingcartitem in Shoppingcartitems %}
+{# {% for Shoppingcartitem in Shoppingcartitems %}
     <li>{{ Shoppingcartitem }}</li>
+{% endfor %} #}
+
+{% set shoppingcart_filter = app.session.get('filter') %}
+{# {% set cart_filter = shoppingcart_filter['Shoppingcart_User'] %} #}
+
+
+{% for id in cart_filter %}
+    <li>{{ id }}</li>
 {% endfor %}
+
 Aantal producten: {{ ShoppingcartCount }}
 {% endblock %}

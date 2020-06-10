@@ -4,42 +4,30 @@ namespace App\Controller;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Validator\Constraints\Length;
+use App\Model\ShoppingCartModel as shop;
 
 class ShoppingcartController extends AbstractController {
 /*----------------------------------------------------------- Display: ------------------------------------------------------------  */
     
 
-    public function Add_product(int $ID) {
-        // $ID is product id
-        $Shoppingcart = array(1,3,2);
-        // var_dump($ID);
-        for($check = count($Shoppingcart)-1; $check < count($Shoppingcart); $check++) {
-            // echo "Check: ". $check. "<br>";
-            if ($Shoppingcart[$check] != $ID) {
-                array_push($Shoppingcart, $ID);
-                // echo "<br> In de loop <br>";
-                // var_dump($Shoppingcart);
-            } else {
-                
-            }
-        }
-        // echo "<br> Uit de loop <br>";
-        // var_dump($Shoppingcart);
-
+    public function Add_product($ID) {
         // $session = $this->get('session');
-        // $session->set('filter', array(
-        //     'Shoppingcart_User' => $Shoppingcart,
-        // ));
+
+        $cart = new shop();  // roept constructor aan van aparte Shoppingcart class,
+                // in deze constructor wordt de sessie uitgelezen en is het object al "gevuld"met de bestaande inhoud
+
+        $cart->add($ID);   // voegt toe en slaat op in sessie
+
+        $cart_contents = $cart->getAllItems();
+
+        $cart_price = $cart->getTotalPrice();
         
+        //$Count_Shoppingcart = count($Shoppingcart);
         
-        
-        // var_dump(count($Shoppingcart));
-        $Count_Shoppingcart = count($Shoppingcart);
-        
-        return $this->render('shoppingcart.html.twig', [
-            // 'Shoppingcartitems' => $Shoppingcart,
-            'ShoppingcartCount' => $Count_Shoppingcart,
-        ]); 
+        // return $this->render('shoppingcart.html.twig', [
+        //     // 'Shoppingcartitems' => $Shoppingcart,
+        //     'ShoppingcartCount' => $Count_Shoppingcart,
+        // ]); 
     }
 
 /*----------------------------------------------------------- Functions: ------------------------------------------------------------  */
